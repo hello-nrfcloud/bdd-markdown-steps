@@ -25,7 +25,8 @@
   },
   "homepage": "https://github.com/hello-nrfcloud/bdd-markdown-steps",
   "keywords": [
-    "BDD",
+    "bdd",
+    "steps",
     "typescript"
   ],
   "author": "Nordic Semiconductor ASA | nordicsemi.no",

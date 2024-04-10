@@ -1,0 +1,95 @@
+{
+  "name": "@hello.nrfcloud.com/bdd-markdown-steps",
+  "version": "0.0.0-development",
+  "description": "Step definitions for BDD Markdown",
+  "exports": {
+    "./*": {
+      "import": {
+        "types": "./dist/*/index.d.ts",
+        "default": "./dist/*/index.js"
+      }
+    }
+  },
+  "type": "module",
+  "scripts": {
+    "test": "tsx --no-warnings --test ./src/**/*.spec.ts",
+    "prepare": "husky",
+    "prepublishOnly": "npx tsc --noEmit false --outDir ./dist -d"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hello-nrfcloud/bdd-markdown-steps.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hello-nrfcloud/bdd-markdown-steps/issues"
+  },
+  "homepage": "https://github.com/hello-nrfcloud/bdd-markdown-steps",
+  "keywords": [
+    "BDD",
+    "typescript"
+  ],
+  "author": "Nordic Semiconductor ASA | nordicsemi.no",
+  "license": "BSD-3-Clause",
+  "devDependencies": {
+    "@bifravst/eslint-config-typescript": "6.0.21",
+    "@bifravst/prettier-config": "1.0.0",
+    "@commitlint/config-conventional": "19.1.0",
+    "@types/aws-lambda": "8.10.137",
+    "@types/node": "20.12.7",
+    "husky": "9.0.11",
+    "tsx": "4.7.2"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "prettier --write",
+      "eslint"
+    ],
+    "*.{md,json,yaml,yml}": [
+      "prettier --write"
+    ]
+  },
+  "engines": {
+    "node": ">=20",
+    "npm": ">=9"
+  },
+  "release": {
+    "branches": [
+      "saga",
+      {
+        "name": "!(saga)",
+        "prerelease": true
+      }
+    ],
+    "remoteTags": true,
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/npm",
+      [
+        "@semantic-release/github",
+        {
+          "successComment": false,
+          "failTitle": false
+        }
+      ]
+    ]
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "package-lock.json",
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "prettier": "@bifravst/prettier-config",
+  "peerDependencies": {
+    "@hello.nrfcloud.com/proto": "^6.5.0",
+    "@nordicsemiconductor/bdd-markdown": "^8.0.16",
+    "@sinclair/typebox": "^0.32.20",
+    "jsonata": "^2.0.4",
+    "p-retry": "^6.2.0",
+    "tsmatchers": "^5.0.2"
+  }
+}

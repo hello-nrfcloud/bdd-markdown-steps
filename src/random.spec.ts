@@ -3,7 +3,7 @@ import assert from 'node:assert/strict'
 import { runFolder } from '@nordicsemiconductor/bdd-markdown'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { steps } from './random.js'
+import { steps, UUIDv4, email, IMEI } from './random.js'
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
 
 void describe('Random', () => {
@@ -12,7 +12,14 @@ void describe('Random', () => {
 			folder: path.join(__dirname, 'test-data', 'random'),
 			name: 'Random',
 		})
-		runner.addStepRunners(...steps)
+		runner.addStepRunners(
+			...steps({
+				UUIDv4,
+				email,
+				IMEI,
+				color: () => 'red',
+			}),
+		)
 		const ctx = {}
 		const result = await runner.run(ctx)
 		assert.equal(result.ok, true)
@@ -30,5 +37,12 @@ void describe('Random', () => {
 				),
 			true,
 		)
+		assert.equal(
+			'imei' in ctx &&
+				typeof ctx.imei === 'string' &&
+				parseInt(ctx.imei, 10) >= 350006660000000,
+			true,
+		)
+		assert.equal('color' in ctx && ctx.color, 'red')
 	})
 })

@@ -5,34 +5,36 @@ import {
 import { Type } from '@sinclair/typebox'
 import { generateCode } from '@hello.nrfcloud.com/proto/fingerprint'
 
-export const email = regExpMatchedStep(
-	{
-		regExp: /^I have a random email in `(?<storeName>[^`]+)`$/,
-		schema: Type.Object({
-			storeName: Type.String({ minLength: 1 }),
-		}),
-	},
-	async ({ match: { storeName }, log: { progress }, context }) => {
-		const randomEmail = `${generateCode()}@example.com`
-		progress(randomEmail)
+const random = (
+	id: string,
+	generator: () => string,
+): StepRunner<Record<string, any>> =>
+	regExpMatchedStep(
+		{
+			regExp: new RegExp(`^I have a random ${id} in \`(?<storeName>[^\`]+)\`$`),
+			schema: Type.Object({
+				storeName: Type.String({ minLength: 1 }),
+			}),
+		},
+		async ({ match: { storeName }, log: { progress }, context }) => {
+			const randomString = generator()
+			progress(randomString)
 
-		context[storeName] = randomEmail
-	},
-)
+			context[storeName] = randomString
+		},
+	)
 
-export const uuidv4 = regExpMatchedStep(
-	{
-		regExp: /^I have a random UUIDv4 in `(?<storeName>[^`]+)`$/,
-		schema: Type.Object({
-			storeName: Type.String({ minLength: 1 }),
-		}),
-	},
-	async ({ match: { storeName }, log: { progress }, context }) => {
-		const randomUUIDv4 = crypto.randomUUID()
-		progress(randomUUIDv4)
+export const UUIDv4 = (): string => crypto.randomUUID()
+export const email = (): string => `${generateCode()}@example.com`
+export const IMEI = (): string =>
+	(350006660000000 + Math.floor(Math.random() * 10000000)).toString()
 
-		context[storeName] = randomUUIDv4
+export const steps: (
+	generators?: Record<string, () => string>,
+) => StepRunner<Record<string, any>>[] = (
+	generators = {
+		email,
+		UUIDv4,
+		IMEI,
 	},
-)
-
-export const steps: StepRunner<Record<string, any>>[] = [email, uuidv4]
+) => Object.entries(generators).map(([id, generator]) => random(id, generator))

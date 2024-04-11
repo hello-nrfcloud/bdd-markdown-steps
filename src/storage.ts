@@ -24,4 +24,4 @@ export const store = regExpMatchedStep(
 	},
 )
 
-export const steps = (): StepRunner<Record<string, any>>[] => [store]
+export const steps: StepRunner<Record<string, any>>[] = [store]

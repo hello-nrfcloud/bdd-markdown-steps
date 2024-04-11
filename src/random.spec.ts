@@ -7,7 +7,7 @@ import { steps } from './random.js'
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
 
 void describe('Random', () => {
-	void it('should store random in the context', async () => {
+	void it('should store random strings in the context', async () => {
 		const runner = await runFolder({
 			folder: path.join(__dirname, 'test-data', 'random'),
 			name: 'Random',

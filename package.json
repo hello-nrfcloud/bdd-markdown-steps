@@ -87,7 +87,7 @@
   ],
   "prettier": "@bifravst/prettier-config",
   "peerDependencies": {
-    "@hello.nrfcloud.com/proto": "^6.6.0",
+    "@hello.nrfcloud.com/proto": "^6.6.1",
     "@nordicsemiconductor/bdd-markdown": "^8.1.0",
     "@sinclair/typebox": "^0.32.20",
     "jsonata": "^2.0.4",

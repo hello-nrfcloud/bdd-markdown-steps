@@ -73,6 +73,20 @@ export const steps: StepRunner<Record<string, any>>[] = [
 	regExpMatchedStep(
 		{
 			regExp:
+				/^the status code of the last response should be `(?<statusCode>[^`]+)`$/,
+			schema: Type.Object({
+				statusCode: Type.RegExp(/^\d+$/),
+			}),
+		},
+		async ({ match: { statusCode } }) => {
+			await currentRequest.match(async ({ response }) =>
+				check(parseInt(statusCode, 10)).is(response.status),
+			)
+		},
+	),
+	regExpMatchedStep(
+		{
+			regExp:
 				/^I store `(?<exp>[^`]+)` of the last response into `(?<storeName>[^`]+)`$/,
 			schema: Type.Object({
 				exp: Type.String(),

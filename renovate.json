@@ -8,6 +8,10 @@
         "@nordicsemiconductor/bdd-markdown"
       ],
       "groupName": "typebox"
+    },
+    {
+      "matchDepTypes": ["peerDependencies"],
+      "semanticCommitType": "fix"
     }
   ]
 }

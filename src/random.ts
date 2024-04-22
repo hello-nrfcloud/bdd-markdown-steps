@@ -40,5 +40,3 @@ export const steps: (
 		IMEI,
 	},
 ) => Object.entries(generators).map(([id, generator]) => random(id, generator))
-
-console.log(randomString())

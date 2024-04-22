@@ -3,7 +3,9 @@ import {
 	type StepRunner,
 } from '@nordicsemiconductor/bdd-markdown'
 import { Type } from '@sinclair/typebox'
-import { generateCode } from '@hello.nrfcloud.com/proto/fingerprint'
+import { randomBytes } from 'crypto'
+
+const randomString = () => randomBytes(Math.ceil(8 * 0.5)).toString('hex')
 
 const random = (
 	id: string,
@@ -25,7 +27,7 @@ const random = (
 	)
 
 export const UUIDv4 = (): string => crypto.randomUUID()
-export const email = (): string => `${generateCode()}@example.com`
+export const email = (): string => `${randomString()}@example.com`
 export const IMEI = (): string =>
 	(350006660000000 + Math.floor(Math.random() * 10000000)).toString()
 
@@ -38,3 +40,5 @@ export const steps: (
 		IMEI,
 	},
 ) => Object.entries(generators).map(([id, generator]) => random(id, generator))
+
+console.log(randomString())

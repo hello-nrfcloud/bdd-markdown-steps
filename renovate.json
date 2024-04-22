@@ -5,8 +5,7 @@
     {
       "matchPackagePatterns": [
         "@sinclair/typebox",
-        "@nordicsemiconductor/bdd-markdown",
-        "@hello.nrfcloud.com/proto"
+        "@nordicsemiconductor/bdd-markdown"
       ],
       "groupName": "typebox"
     }

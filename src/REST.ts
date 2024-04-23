@@ -93,11 +93,10 @@ export const steps: StepRunner<Record<string, any>>[] = [
 				storeName: Type.String(),
 			}),
 		},
-		async ({ match: { exp, storeName }, log: { progress }, context }) => {
+		async ({ match: { exp, storeName }, context }) => {
 			await currentRequest.match(async ({ body }) => {
 				const e = jsonata(exp)
 				const result = await e.evaluate(body)
-				progress(result)
 				assert.notEqual(result, undefined)
 				context[storeName] = result
 			})
@@ -110,14 +109,12 @@ export const steps: StepRunner<Record<string, any>>[] = [
 				exp: Type.Optional(Type.String()),
 			}),
 		},
-		async ({ step, match: { exp }, log: { progress } }) => {
+		async ({ step, match: { exp } }) => {
+			const expected = JSON.parse(codeBlockOrThrow(step).code)
 			await currentRequest.match(async ({ body }) => {
-				const expected = JSON.parse(codeBlockOrThrow(step).code)
-				progress(expected)
 				if (exp !== undefined) {
 					const e = jsonata(exp)
 					const result = await e.evaluate(body)
-					progress(result)
 					check(result).is(objectMatching(expected))
 				} else {
 					check(body).is(objectMatching(expected))

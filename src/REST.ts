@@ -17,12 +17,13 @@ export const steps: StepRunner<Record<string, any>>[] = [
 	regExpMatchedStep(
 		{
 			regExp:
-				/^I `(?<method>GET|POST|PUT|DELETE)`( to)? `(?<endpoint>https?:\/\/[^`]+)`(?<withPayload> with)?$/,
+				/^I `(?<method>GET|POST|PUT|PATCH|DELETE)`( to)? `(?<endpoint>https?:\/\/[^`]+)`(?<withPayload> with)?$/,
 			schema: Type.Object({
 				method: Type.Union([
 					Type.Literal('GET'),
 					Type.Literal('POST'),
 					Type.Literal('PUT'),
+					Type.Literal('PATCH'),
 					Type.Literal('DELETE'),
 				]),
 				endpoint: Type.String({ minLength: 1 }),

@@ -17,7 +17,7 @@ export const steps: StepRunner<Record<string, any>>[] = [
 	regExpMatchedStep(
 		{
 			regExp:
-				/^I `(?<method>GET|POST|PUT|PATCH|DELETE)`( to)? `(?<endpoint>https?:\/\/[^`]+)`(?<withPayload> with)?$/,
+				/^I `(?<method>GET|POST|PUT|PATCH|DELETE)`( to)? `(?<endpoint>https?:\/\/[^`]+)`(?: retrying (?<retry>[0-9]+) times )?(?<withPayload> with)?$/,
 			schema: Type.Object({
 				method: Type.Union([
 					Type.Literal('GET'),
@@ -28,9 +28,10 @@ export const steps: StepRunner<Record<string, any>>[] = [
 				]),
 				endpoint: Type.String({ minLength: 1 }),
 				withPayload: Type.Optional(Type.Literal(' with')),
+				retry: Type.Optional(Type.String({ minLength: 1 })),
 			}),
 		},
-		async ({ match: { method, endpoint, withPayload }, log, step }) => {
+		async ({ match: { method, endpoint, withPayload, retry }, log, step }) => {
 			const url = new URL(endpoint)
 
 			const headers: HeadersInit = {
@@ -51,6 +52,10 @@ export const steps: StepRunner<Record<string, any>>[] = [
 					headers,
 				},
 				log,
+				undefined,
+				{
+					numTries: retry === undefined ? undefined : parseInt(retry, 10),
+				},
 			)
 		},
 	),

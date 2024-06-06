@@ -10,6 +10,9 @@ export const doRequest = (
 	request: RequestInit,
 	logger?: Logger,
 	fetchImplementation?: typeof fetch,
+	retryConfig?: {
+		numTries?: number
+	},
 ): {
 	match: (assertFn: (args: Result) => Promise<unknown>) => Promise<void>
 } => {
@@ -73,9 +76,9 @@ export const doRequest = (
 						})
 					},
 					{
-						retries: 4,
+						retries: retryConfig?.numTries ?? 4,
 						minTimeout: 1000,
-						maxTimeout: 2000,
+						maxTimeout: 10000,
 						onFailedAttempt: (error) => {
 							logger?.progress(`attempt #${error.attemptNumber}`)
 						},

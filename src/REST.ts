@@ -17,7 +17,7 @@ export const steps: StepRunner<Record<string, any>>[] = [
 	regExpMatchedStep(
 		{
 			regExp:
-				/^I `(?<method>GET|POST|PUT|PATCH|DELETE)`( to)? `(?<endpoint>https?:\/\/[^`]+)`(?: retrying (?<retry>[0-9]+) times )?(?<withPayload> with)?$/,
+				/^I `(?<method>GET|POST|PUT|PATCH|DELETE)`( to)? `(?<endpoint>https?:\/\/[^`]+)`(?: retrying (?<retry>[0-9]+) times)?(?<withPayload> with)?$/,
 			schema: Type.Object({
 				method: Type.Union([
 					Type.Literal('GET'),

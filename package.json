@@ -84,7 +84,7 @@
   "prettier": "@bifravst/prettier-config",
   "peerDependencies": {
     "@aws-sdk/client-dynamodb": "^3.598.0",
-    "@bifravst/http-api-mock": "^1.4.95",
+    "@bifravst/http-api-mock": "^2.0.8",
     "@nordicsemiconductor/bdd-markdown": "^8.2.1",
     "@sinclair/typebox": "^0.32.32",
     "jsonata": "^2.0.5",

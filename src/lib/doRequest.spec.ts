@@ -40,13 +40,13 @@ void describe('doRequest()', () => {
 	})
 
 	void it('should retry the request if the assert fails', async () => {
-		const mockFetch = mock.fn()
+		const mockFetch = mock.fn<() => Promise<ReturnType<typeof fetch>>>()
 		mockFetch.mock.mockImplementationOnce(
 			async () =>
 				Promise.resolve({
 					status: 404,
 					headers: new Map<string, string>([]),
-				}),
+				} as any),
 			0,
 		)
 		mockFetch.mock.mockImplementationOnce(
@@ -57,7 +57,7 @@ void describe('doRequest()', () => {
 						['content-type', 'application/json'],
 					]),
 					json: async () => Promise.resolve({ foo: 'bar' }),
-				}),
+				} as any),
 			1,
 		)
 		const assertFn = mock.fn(async ({ response }) =>

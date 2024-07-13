@@ -1,7 +1,4 @@
-import {
-	regExpMatchedStep,
-	type StepRunner,
-} from '@nordicsemiconductor/bdd-markdown'
+import { regExpMatchedStep, type StepRunner } from '@bifravst/bdd-markdown'
 import { Type } from '@sinclair/typebox'
 import assert from 'node:assert/strict'
 import jsonata from 'jsonata'

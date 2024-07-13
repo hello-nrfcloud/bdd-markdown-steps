@@ -3,10 +3,7 @@
   "extends": ["github>bifravst/renovate-config"],
   "packageRules": [
     {
-      "matchPackagePatterns": [
-        "@sinclair/typebox",
-        "@nordicsemiconductor/bdd-markdown"
-      ],
+      "matchPackagePatterns": ["@sinclair/typebox", "@bifravst/bdd-markdown"],
       "groupName": "typebox"
     },
     {

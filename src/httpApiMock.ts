@@ -3,7 +3,7 @@ import {
 	codeBlockOrThrow,
 	regExpMatchedStep,
 	type StepRunner,
-} from '@nordicsemiconductor/bdd-markdown'
+} from '@bifravst/bdd-markdown'
 import { Type } from '@sinclair/typebox'
 import { parseMockResponse } from '@bifravst/http-api-mock/parseMockResponse'
 import { registerResponse } from '@bifravst/http-api-mock/responses'

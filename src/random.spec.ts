@@ -1,6 +1,6 @@
 import { describe, it } from 'node:test'
 import assert from 'node:assert/strict'
-import { runFolder } from '@nordicsemiconductor/bdd-markdown'
+import { runFolder } from '@bifravst/bdd-markdown'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { steps, UUIDv4, email, IMEI } from './random.js'

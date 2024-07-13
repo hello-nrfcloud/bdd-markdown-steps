@@ -1,4 +1,4 @@
-import { type Logger } from '@nordicsemiconductor/bdd-markdown'
+import { type Logger } from '@bifravst/bdd-markdown'
 import pRetry from 'p-retry'
 
 type Result = {

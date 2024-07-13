@@ -1,4 +1,4 @@
-import type { LogObserver } from '@nordicsemiconductor/bdd-markdown'
+import type { LogObserver } from '@bifravst/bdd-markdown'
 
 const print = (arg: unknown) =>
 	typeof arg === 'object' ? JSON.stringify(arg) : arg

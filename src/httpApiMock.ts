@@ -27,7 +27,7 @@ export const steps = ({
 		regExpMatchedStep(
 			{
 				regExp:
-					/^this HTTP API Mock response for `(?<methodHostPathQuery>[A-Z]+ http?s:\/\/[^`]+)` is queued( and kept)?$/,
+					/^this HTTP API Mock response for `(?<methodHostPathQuery>[A-Z]+ http?s:\/\/[^`]+)` is queued(?<keep> and kept)?$/,
 				schema: Type.Object({
 					methodHostPathQuery: Type.String(),
 					keep: Type.Optional(Type.Literal(' and kept')),

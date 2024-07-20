@@ -27,12 +27,17 @@ export const steps = ({
 		regExpMatchedStep(
 			{
 				regExp:
-					/^this HTTP API Mock response for `(?<methodHostPathQuery>[A-Z]+ http?s:\/\/[^`]+)` is queued$/,
+					/^this HTTP API Mock response for `(?<methodHostPathQuery>[A-Z]+ http?s:\/\/[^`]+)` is queued( and kept)?$/,
 				schema: Type.Object({
 					methodHostPathQuery: Type.String(),
+					keep: Type.Optional(Type.Literal(' and kept')),
 				}),
 			},
-			async ({ match: { methodHostPathQuery }, log: { progress }, step }) => {
+			async ({
+				match: { methodHostPathQuery, keep },
+				log: { progress },
+				step,
+			}) => {
 				const [method, hostPathQuery] = methodHostPathQuery.split(' ')
 				if (method === undefined) throw new Error(`Method is undefined!`)
 				if (hostPathQuery === undefined)
@@ -63,6 +68,7 @@ export const steps = ({
 					queryParams:
 						query !== undefined ? new URLSearchParams(query) : undefined,
 					statusCode: response.statusCode,
+					keep: keep !== undefined,
 				})
 			},
 		),

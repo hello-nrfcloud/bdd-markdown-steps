@@ -85,7 +85,7 @@
   "peerDependencies": {
     "@aws-sdk/client-dynamodb": "^3.622.0",
     "@bifravst/bdd-markdown": "^8.2.6",
-    "@bifravst/http-api-mock": "^2.0.65",
+    "@bifravst/http-api-mock": "^2.0.67",
     "@sinclair/typebox": "^0.32.35",
     "jsonata": "^2.0.5",
     "p-retry": "^6.2.0",

@@ -13,6 +13,8 @@ let currentRequest: ReturnType<typeof doRequest> = {
 	match: async () => Promise.reject(new Error(`No request pending!`)),
 }
 
+let nextRequestHeaders: Headers = new Headers()
+
 export const steps: StepRunner<Record<string, any>>[] = [
 	regExpMatchedStep(
 		{
@@ -34,14 +36,18 @@ export const steps: StepRunner<Record<string, any>>[] = [
 		async ({ match: { method, endpoint, withPayload, retry }, log, step }) => {
 			const url = new URL(endpoint)
 
-			const headers: HeadersInit = {
+			const headers: Headers = new Headers({
 				Accept: 'application/json',
+			})
+			for (const [key, value] of nextRequestHeaders.entries()) {
+				headers.set(key, value)
 			}
+			nextRequestHeaders = new Headers()
 
 			let bodyAsString: string | undefined = undefined
 			if (withPayload !== undefined) {
 				bodyAsString = JSON.stringify(JSON.parse(codeBlockOrThrow(step).code))
-				headers['Content-type'] = 'application/json'
+				headers.set('content-type', 'application/json')
 			}
 
 			currentRequest = doRequest(
@@ -57,6 +63,20 @@ export const steps: StepRunner<Record<string, any>>[] = [
 					numTries: retry === undefined ? undefined : parseInt(retry, 10),
 				},
 			)
+		},
+	),
+	regExpMatchedStep(
+		{
+			regExp:
+				/^the `(?<header>[^`]+)` header of the next request is `(?<value>[^`]+)`$/,
+			schema: Type.Object({
+				header: Type.String({ minLength: 1 }),
+				value: Type.String({ minLength: 1 }),
+			}),
+		},
+		async ({ match: { header, value }, log: { debug } }) => {
+			debug(header, value)
+			nextRequestHeaders.set(header, value)
 		},
 	),
 	regExpMatchedStep(

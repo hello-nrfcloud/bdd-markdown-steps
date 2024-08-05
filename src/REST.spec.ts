@@ -10,9 +10,29 @@ const __dirname = fileURLToPath(new URL('.', import.meta.url))
 void describe('REST', () => {
 	void it('should implement a REST client', async () => {
 		const scope = nock(`https://api.example.com`)
+
+		scope
 			.get('/foo', undefined, {
 				reqheaders: {
 					Accept: 'application/json',
+				},
+			})
+			.reply(
+				200,
+				{
+					'@context':
+						'https://github.com/hello-nrfcloud/bdd-markdown-steps/tests',
+					success: true,
+				},
+				{
+					'content-type': 'application/json; charset=utf-8',
+				},
+			)
+
+		scope
+			.post('/bar', undefined, {
+				reqheaders: {
+					Authorization: 'Bearer BAR',
 				},
 			})
 			.reply(

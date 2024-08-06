@@ -29,12 +29,14 @@ export const steps = ({
 	requestsTableName,
 	ssm,
 	stackName,
+	prefix,
 }: {
 	db: DynamoDBClient
 	responsesTableName: string
 	requestsTableName: string
 	ssm: SSMClient
 	stackName: string
+	prefix: string
 }): StepRunner<Record<string, any>>[] => {
 	const mockShadowData = regExpMatchedStep(
 		{
@@ -54,7 +56,7 @@ export const steps = ({
 				deviceIds: deviceId,
 			})
 
-			const methodPathQuery = `GET v1/devices?${sortQuery(query)}`
+			const methodPathQuery = `GET ${prefix}/v1/devices?${sortQuery(query)}`
 			progress(`Mock http url: ${methodPathQuery}`)
 			await db.send(
 				new PutItemCommand({
@@ -87,7 +89,7 @@ export const steps = ({
 		async ({ match: { methodPathQuery }, log: { progress }, step }) => {
 			const expectedResponse = codeBlockOrThrow(step).code
 			const response = parseMockResponse(expectedResponse)
-			progress(`expected query: ${methodPathQuery}`)
+			progress(`expected query: ${prefix}/${methodPathQuery}`)
 			const [method, resourceWithQuery] = methodPathQuery.split(' ') as [
 				string,
 				string,
@@ -105,7 +107,7 @@ export const steps = ({
 
 			await registerResponse(db, responsesTableName, {
 				method,
-				path: resource.slice(1),
+				path: `${prefix}/${resource.slice(1)}`,
 				body: body.length > 0 ? body.join('\n') : undefined,
 				queryParams: queryParams ? new URLSearchParams(queryParams) : undefined,
 				statusCode: response.statusCode,
@@ -132,7 +134,7 @@ export const steps = ({
 			}
 
 			const methodPathQuery = `${request.method} ${sortQueryString(request.resource.slice(1))}`
-			progress(`expected query: ${methodPathQuery}`)
+			progress(`expected query: ${prefix}/${methodPathQuery}`)
 
 			const scanRequests = async () => {
 				const result = await db.send(
@@ -145,7 +147,7 @@ export const steps = ({
 							'#headers': 'headers',
 						},
 						ExpressionAttributeValues: {
-							':methodPathQuery': { S: methodPathQuery },
+							':methodPathQuery': { S: `${prefix}/${methodPathQuery}` },
 						},
 						ProjectionExpression: '#body, #headers',
 						ScanIndexForward: false,
@@ -229,7 +231,7 @@ export const steps = ({
 						},
 						ExpressionAttributeValues: {
 							':method': { S: 'GET' },
-							':path': { S: 'v1/devices' },
+							':path': { S: `${prefix}/v1/devices` },
 							':timestamp': { S: fiveMinutesAgo.toISOString() },
 						},
 						ProjectionExpression: '#timestamp, #query, #headers',

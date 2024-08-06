@@ -89,11 +89,11 @@ export const steps = ({
 		async ({ match: { methodPathQuery }, log: { progress }, step }) => {
 			const expectedResponse = codeBlockOrThrow(step).code
 			const response = parseMockResponse(expectedResponse)
-			progress(`expected query: ${prefix}/${methodPathQuery}`)
 			const [method, resourceWithQuery] = methodPathQuery.split(' ') as [
 				string,
 				string,
 			]
+			progress(`expected query: ${method} ${prefix}/${resourceWithQuery}`)
 			const [resource, queryParams] = resourceWithQuery.split('?') as [
 				string,
 				string,
@@ -133,8 +133,8 @@ export const steps = ({
 				expectedBody = JSON.stringify(JSON.parse(expectedBody))
 			}
 
-			const methodPathQuery = `${request.method} ${sortQueryString(request.resource.slice(1))}`
-			progress(`expected query: ${prefix}/${methodPathQuery}`)
+			const methodPathQuery = `${request.method} ${prefix}/${sortQueryString(request.resource.slice(1))}`
+			progress(`expected query: ${methodPathQuery}`)
 
 			const scanRequests = async () => {
 				const result = await db.send(
@@ -147,7 +147,7 @@ export const steps = ({
 							'#headers': 'headers',
 						},
 						ExpressionAttributeValues: {
-							':methodPathQuery': { S: `${prefix}/${methodPathQuery}` },
+							':methodPathQuery': { S: methodPathQuery },
 						},
 						ProjectionExpression: '#body, #headers',
 						ScanIndexForward: false,

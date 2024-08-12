@@ -5,9 +5,9 @@ import {
 } from '@bifravst/bdd-markdown'
 import { Type } from '@sinclair/typebox'
 import jsonata from 'jsonata'
+import assert from 'node:assert/strict'
 import { check, objectMatching } from 'tsmatchers'
 import { doRequest } from './lib/doRequest.js'
-import assert from 'node:assert/strict'
 
 let currentRequest: ReturnType<typeof doRequest> = {
 	match: async () => Promise.reject(new Error(`No request pending!`)),

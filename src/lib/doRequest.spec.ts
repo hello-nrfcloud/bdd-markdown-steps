@@ -1,7 +1,7 @@
-import { describe, it, mock } from 'node:test'
-import { doRequest } from './doRequest.js'
-import { check, objectMatching, arrayContaining } from 'tsmatchers'
 import assert from 'node:assert/strict'
+import { describe, it, mock } from 'node:test'
+import { arrayContaining, check, objectMatching } from 'tsmatchers'
+import { doRequest } from './doRequest.js'
 
 void describe('doRequest()', () => {
 	void it('should execute a request', async () => {

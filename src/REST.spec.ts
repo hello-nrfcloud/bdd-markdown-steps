@@ -1,10 +1,10 @@
-import { describe, it, afterEach } from 'node:test'
-import assert from 'node:assert/strict'
 import { runFolder } from '@bifravst/bdd-markdown'
+import nock from 'nock'
+import assert from 'node:assert/strict'
 import path from 'node:path'
+import { afterEach, describe, it } from 'node:test'
 import { fileURLToPath } from 'node:url'
 import { steps } from './REST.js'
-import nock from 'nock'
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
 
 void describe('REST', () => {

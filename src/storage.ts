@@ -1,7 +1,7 @@
 import { regExpMatchedStep, type StepRunner } from '@bifravst/bdd-markdown'
 import { Type } from '@sinclair/typebox'
-import assert from 'node:assert/strict'
 import jsonata from 'jsonata'
+import assert from 'node:assert/strict'
 
 export const store = regExpMatchedStep(
 	{

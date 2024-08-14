@@ -36,7 +36,7 @@
     "@bifravst/prettier-config": "1.1.0",
     "@commitlint/config-conventional": "19.2.2",
     "@types/aws-lambda": "8.10.143",
-    "@types/node": "20.14.15",
+    "@types/node": "22.3.0",
     "globstar": "1.0.0",
     "husky": "9.1.4",
     "nock": "^14.0.0-beta.9",
@@ -84,7 +84,7 @@
   "prettier": "@bifravst/prettier-config",
   "peerDependencies": {
     "@aws-sdk/client-dynamodb": "^3.629.0",
-    "@bifravst/bdd-markdown": "^8.2.12",
+    "@bifravst/bdd-markdown": "^8.2.13",
     "@bifravst/http-api-mock": "^2.0.78",
     "@hello.nrfcloud.com/nrfcloud-api-helpers": "^5.3.41",
     "@sinclair/typebox": "^0.33.5",

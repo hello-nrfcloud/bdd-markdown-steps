@@ -83,10 +83,10 @@
   ],
   "prettier": "@bifravst/prettier-config",
   "peerDependencies": {
-    "@aws-sdk/client-dynamodb": "^3.635.0",
+    "@aws-sdk/client-dynamodb": "^3.637.0",
     "@bifravst/bdd-markdown": "^8.2.15",
     "@bifravst/http-api-mock": "^2.0.96",
-    "@hello.nrfcloud.com/nrfcloud-api-helpers": "^5.3.53",
+    "@hello.nrfcloud.com/nrfcloud-api-helpers": "^5.3.54",
     "@sinclair/typebox": "^0.33.7",
     "jsonata": "^2.0.5",
     "p-retry": "^6.2.0",

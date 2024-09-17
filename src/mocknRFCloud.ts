@@ -20,6 +20,7 @@ import {
 } from '@bifravst/http-api-mock/sortQueryString'
 import { getAllAccountsSettings } from '@hello.nrfcloud.com/nrfcloud-api-helpers/settings'
 import { Type } from '@sinclair/typebox'
+import { randomUUID } from 'node:crypto'
 import pRetry from 'p-retry'
 import { check, objectMatching, stringContaining } from 'tsmatchers'
 
@@ -62,6 +63,7 @@ export const steps = ({
 				new PutItemCommand({
 					TableName: responsesTableName,
 					Item: marshall({
+						responseId: randomUUID(),
 						methodPathQuery,
 						timestamp: new Date().toISOString(),
 						statusCode: 200,

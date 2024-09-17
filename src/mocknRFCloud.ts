@@ -142,6 +142,7 @@ export const steps = ({
 				const result = await db.send(
 					new QueryCommand({
 						TableName: requestsTableName,
+						IndexName: 'methodPathQuery',
 						KeyConditionExpression: '#methodPathQuery = :methodPathQuery',
 						ExpressionAttributeNames: {
 							'#methodPathQuery': 'methodPathQuery',

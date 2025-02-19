@@ -86,7 +86,7 @@
     "@aws-sdk/client-dynamodb": "^3.751.0",
     "@bifravst/bdd-markdown": "^8.2.57",
     "@bifravst/http-api-mock": "^2.1.151",
-    "@hello.nrfcloud.com/nrfcloud-api-helpers": "^6.0.158",
+    "@hello.nrfcloud.com/nrfcloud-api-helpers": "^6.0.159",
     "@sinclair/typebox": "^0.34.25",
     "jsonata": "^2.0.6",
     "p-retry": "^6.2.1",

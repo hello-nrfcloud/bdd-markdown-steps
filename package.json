@@ -87,7 +87,7 @@
     "@bifravst/bdd-markdown": "^8.2.58",
     "@bifravst/http-api-mock": "^2.1.151",
     "@hello.nrfcloud.com/nrfcloud-api-helpers": "^6.0.159",
-    "@sinclair/typebox": "^0.34.26",
+    "@sinclair/typebox": "^0.34.27",
     "jsonata": "^2.0.6",
     "p-retry": "^6.2.1",
     "tsmatchers": "^5.0.2"

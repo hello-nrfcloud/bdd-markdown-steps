@@ -85,7 +85,7 @@
   "peerDependencies": {
     "@aws-sdk/client-dynamodb": "^3.823.0",
     "@bifravst/bdd-markdown": "^8.2.66",
-    "@bifravst/http-api-mock": "^2.1.216",
+    "@bifravst/http-api-mock": "^2.1.218",
     "@hello.nrfcloud.com/nrfcloud-api-helpers": "^6.0.260",
     "@sinclair/typebox": "^0.34.33",
     "jsonata": "^2.0.6",

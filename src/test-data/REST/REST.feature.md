@@ -24,3 +24,9 @@ Then I should receive a
 `https://github.com/hello-nrfcloud/bdd-markdown-steps/tests` response
 
 And the status code of the last response should be `200`
+
+## Reading headers
+
+When I `GET` to `${endpoint}/header-response`
+
+Then the `x-foo` header of the last response should be `bar`

@@ -110,6 +110,21 @@ export const steps: StepRunner<Record<string, any>>[] = [
 	regExpMatchedStep(
 		{
 			regExp:
+				/^the `(?<headerName>[^`]+)` header of the last response should be `(?<headerValue>[^`]+)`$/,
+			schema: Type.Object({
+				headerName: Type.String({ minLength: 1 }),
+				headerValue: Type.String({ minLength: 1 }),
+			}),
+		},
+		async ({ match: { headerName, headerValue } }) => {
+			await currentRequest.match(async ({ response }) =>
+				assert.equal(response.headers.get(headerName), headerValue),
+			)
+		},
+	),
+	regExpMatchedStep(
+		{
+			regExp:
 				/^I store `(?<exp>[^`]+)` of the last response into `(?<storeName>[^`]+)`$/,
 			schema: Type.Object({
 				exp: Type.String(),

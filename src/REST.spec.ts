@@ -47,6 +47,10 @@ void describe('REST', () => {
 				},
 			)
 
+		scope.get('/header-response').reply(200, undefined, {
+			'x-foo': 'bar',
+		})
+
 		const runner = await runFolder({
 			folder: path.join(__dirname, 'test-data', 'REST'),
 			name: 'REST',

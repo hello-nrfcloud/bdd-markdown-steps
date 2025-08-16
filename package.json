@@ -12,9 +12,9 @@
   },
   "type": "module",
   "scripts": {
-    "test": "npx globstar -- npx tsx --test --test-reporter spec \"!(dist|node_modules)/**/*.spec.ts\"",
+    "test": "node --experimental-transform-types --test \"!(dist|node_modules)/**/*.spec.ts\"",
     "prepare": "husky",
-    "prepublishOnly": "npx tsc --noEmit false --outDir ./dist -d"
+    "prepublishOnly": "node --experimental-strip-types ./.npm/compile.ts && npx tsc -P ./.npm/tsconfig.npm.json --outDir ./dist"
   },
   "repository": {
     "type": "git",
@@ -37,10 +37,8 @@
     "@commitlint/config-conventional": "19.8.1",
     "@types/aws-lambda": "8.10.152",
     "@types/node": "24.3.0",
-    "globstar": "1.0.0",
     "husky": "9.1.7",
-    "nock": "14.0.10",
-    "tsx": "4.20.4"
+    "nock": "14.0.10"
   },
   "lint-staged": {
     "*.ts": [

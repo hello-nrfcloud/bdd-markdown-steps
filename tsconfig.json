@@ -17,8 +17,8 @@
     "noEmit": true,
     "verbatimModuleSyntax": true,
     "baseUrl": ".",
-    "rootDir": "./src/"
+    "allowImportingTsExtensions": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", ".npm/**/*"],
   "exclude": ["dist/*"]
 }

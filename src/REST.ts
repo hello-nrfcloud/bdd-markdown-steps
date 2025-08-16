@@ -6,7 +6,7 @@ import {
 import { Type } from '@sinclair/typebox'
 import jsonata from 'jsonata'
 import assert from 'node:assert/strict'
-import { doRequest } from './lib/doRequest.js'
+import { doRequest } from './lib/doRequest.ts'
 
 let currentRequest: ReturnType<typeof doRequest> = {
 	match: async () => Promise.reject(new Error(`No request pending!`)),

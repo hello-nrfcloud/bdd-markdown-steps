@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import { describe, it, mock } from 'node:test'
-import { doRequest, type AssertFn } from './doRequest.js'
+import { doRequest, type AssertFn } from './doRequest.ts'
 
 void describe('doRequest()', () => {
 	void it('should execute a request', async () => {

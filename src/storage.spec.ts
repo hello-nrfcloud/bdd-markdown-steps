@@ -3,7 +3,7 @@ import assert from 'node:assert/strict'
 import path from 'node:path'
 import { describe, it } from 'node:test'
 import { fileURLToPath } from 'node:url'
-import { steps } from './storage.js'
+import { steps } from './storage.ts'
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
 
 void describe('storage', () => {

@@ -4,7 +4,7 @@ import assert from 'node:assert/strict'
 import path from 'node:path'
 import { afterEach, describe, it } from 'node:test'
 import { fileURLToPath } from 'node:url'
-import { steps } from './REST.js'
+import { steps } from './REST.ts'
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
 
 void describe('REST', () => {

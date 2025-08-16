@@ -39,7 +39,7 @@
     "@types/node": "22.16.5",
     "globstar": "1.0.0",
     "husky": "9.1.7",
-    "nock": "^14.0.6",
+    "nock": "^14.0.10",
     "tsx": "4.20.3"
   },
   "lint-staged": {

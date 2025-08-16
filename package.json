@@ -32,15 +32,15 @@
   "author": "Nordic Semiconductor ASA | nordicsemi.no",
   "license": "BSD-3-Clause",
   "devDependencies": {
-    "@bifravst/eslint-config-typescript": "6.4.2",
+    "@bifravst/eslint-config-typescript": "6.4.3",
     "@bifravst/prettier-config": "1.1.12",
     "@commitlint/config-conventional": "19.8.1",
     "@types/aws-lambda": "8.10.152",
-    "@types/node": "22.16.5",
+    "@types/node": "24.3.0",
     "globstar": "1.0.0",
     "husky": "9.1.7",
-    "nock": "^14.0.6",
-    "tsx": "4.20.3"
+    "nock": "14.0.10",
+    "tsx": "4.20.4"
   },
   "lint-staged": {
     "*.ts": [
@@ -52,7 +52,7 @@
     ]
   },
   "engines": {
-    "node": ">=22",
+    "node": ">=22.13.0",
     "npm": ">=10"
   },
   "release": {
@@ -83,13 +83,12 @@
   ],
   "prettier": "@bifravst/prettier-config",
   "peerDependencies": {
-    "@aws-sdk/client-dynamodb": "^3.848.0",
-    "@bifravst/bdd-markdown": "^8.2.70",
-    "@bifravst/http-api-mock": "^2.1.247",
-    "@hello.nrfcloud.com/nrfcloud-api-helpers": "^6.0.304",
-    "@sinclair/typebox": "^0.34.38",
-    "jsonata": "^2.0.6",
-    "p-retry": "^6.2.1",
-    "tsmatchers": "^5.0.3"
+    "@aws-sdk/client-dynamodb": "^3.868.0",
+    "@bifravst/bdd-markdown": "^8.2.74",
+    "@bifravst/http-api-mock": "^2.1.267",
+    "@hello.nrfcloud.com/nrfcloud-api-helpers": "^6.0.317",
+    "@sinclair/typebox": "^0.34.39",
+    "jsonata": "^2.1.0",
+    "p-retry": "^6.2.1"
   }
 }

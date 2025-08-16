@@ -20,9 +20,9 @@ import {
 } from '@bifravst/http-api-mock/sortQueryString'
 import { getAllAccountsSettings } from '@hello.nrfcloud.com/nrfcloud-api-helpers/settings'
 import { Type } from '@sinclair/typebox'
+import assert from 'node:assert/strict'
 import { randomUUID } from 'node:crypto'
 import pRetry from 'p-retry'
-import { check, objectMatching, stringContaining } from 'tsmatchers'
 
 export const steps = ({
 	db,
@@ -161,14 +161,16 @@ export const steps = ({
 					.map((item) => unmarshall(item))
 					.find(({ body, headers }) => {
 						try {
-							progress(`body: ${body}`)
-							check(body).is(expectedBody)
+							assert.equal(body, expectedBody)
 						} catch {
 							return false
 						}
 						try {
 							progress(`headers: ${headers}`)
-							check(JSON.parse(headers)).is(objectMatching(request.headers))
+							assert.partialDeepStrictEqual(
+								JSON.parse(headers),
+								request.headers,
+							)
 						} catch (err) {
 							return false
 						}
@@ -252,19 +254,20 @@ export const steps = ({
 					)
 					.find(({ query, headers }) => {
 						try {
-							check(query ?? {}).is(
-								objectMatching({
-									includeState: 'true',
-									includeStateMeta: 'true',
-									pageLimit: '100',
-									deviceIds: stringContaining(deviceId),
-								}),
+							assert.partialDeepStrictEqual(query ?? {}, {
+								includeState: 'true',
+								includeStateMeta: 'true',
+								pageLimit: '100',
+							})
+							assert.ok(
+								(query ?? {})?.deviceIds?.includes(deviceId) === true,
+								`Device ID ${deviceId} is not included in query`,
 							)
 							progress('headers', headers)
-							check(JSON.parse(headers)).is(
-								objectMatching({
-									Authorization: stringContaining(expectedAPIKey),
-								}),
+							assert.ok(
+								JSON.parse(headers)?.Authorization?.includes(expectedAPIKey) ===
+									true,
+								`Authorization header does not include expected API key`,
 							)
 							return true
 						} catch {

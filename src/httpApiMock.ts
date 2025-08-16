@@ -9,8 +9,8 @@ import { parseMockResponse } from '@bifravst/http-api-mock/parseMockResponse'
 import { listRequests } from '@bifravst/http-api-mock/requests'
 import { registerResponse } from '@bifravst/http-api-mock/responses'
 import { Type } from '@sinclair/typebox'
+import assert from 'node:assert/strict'
 import pRetry from 'p-retry'
-import { check, objectMatching } from 'tsmatchers'
 
 export const steps = ({
 	db,
@@ -88,9 +88,9 @@ export const steps = ({
 							if (seenRequests.includes(request.requestId)) continue
 							seenRequests.push(request.requestId)
 							try {
-								check(request.method).is(method)
-								check(request.path).is(resource.slice(1))
-								check(request.headers).is(objectMatching(headers))
+								assert.equal(request.method, method)
+								assert.equal(request.path, resource.slice(1))
+								assert.partialDeepStrictEqual(request.headers, headers)
 								const isJSON =
 									Object.entries(request.headers)
 										.map(([k, v]) => [k.toLowerCase(), v])
@@ -100,11 +100,12 @@ export const steps = ({
 										) !== undefined
 								if (isJSON) {
 									progress('Body is JSON')
-									check(JSON.parse(request.body)).is(
-										objectMatching(JSON.parse(body)),
+									assert.partialDeepStrictEqual(
+										JSON.parse(request.body),
+										JSON.parse(body),
 									)
 								} else {
-									check(request.body).is(body)
+									assert.equal(request.body, body)
 								}
 
 								return

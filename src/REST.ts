@@ -6,7 +6,6 @@ import {
 import { Type } from '@sinclair/typebox'
 import jsonata from 'jsonata'
 import assert from 'node:assert/strict'
-import { check, objectMatching } from 'tsmatchers'
 import { doRequest } from './lib/doRequest.js'
 
 let currentRequest: ReturnType<typeof doRequest> = {
@@ -88,11 +87,9 @@ export const steps: StepRunner<Record<string, any>>[] = [
 		},
 		async ({ match: { context } }) => {
 			await currentRequest.match(async ({ body }) =>
-				check(body).is(
-					objectMatching({
-						'@context': context,
-					}),
-				),
+				assert.partialDeepStrictEqual(body, {
+					'@context': context,
+				}),
 			)
 		},
 	),
@@ -106,7 +103,7 @@ export const steps: StepRunner<Record<string, any>>[] = [
 		},
 		async ({ match: { statusCode } }) => {
 			await currentRequest.match(async ({ response }) =>
-				check(parseInt(statusCode, 10)).is(response.status),
+				assert.equal(parseInt(statusCode, 10), response.status),
 			)
 		},
 	),
@@ -141,9 +138,9 @@ export const steps: StepRunner<Record<string, any>>[] = [
 				if (exp !== undefined) {
 					const e = jsonata(exp)
 					const result = await e.evaluate(body)
-					check(result).is(objectMatching(expected))
+					assert.partialDeepStrictEqual(result, expected)
 				} else {
-					check(body).is(objectMatching(expected))
+					assert.partialDeepStrictEqual(body, expected)
 				}
 			})
 		},

@@ -1,6 +1,8 @@
 import { type Logger } from '@bifravst/bdd-markdown'
 import pRetry from 'p-retry'
 
+export type AssertFn = (args: Result) => Promise<unknown>
+
 type Result = {
 	response: Response
 	body?: Record<string, unknown>
@@ -14,7 +16,7 @@ export const doRequest = (
 		numTries?: number
 	},
 ): {
-	match: (assertFn: (args: Result) => Promise<unknown>) => Promise<void>
+	match: (assertFn: AssertFn) => Promise<void>
 } => {
 	let requestInFlight: Promise<Result> | undefined = undefined
 

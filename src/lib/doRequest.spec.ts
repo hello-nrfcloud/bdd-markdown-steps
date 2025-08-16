@@ -1,7 +1,6 @@
 import assert from 'node:assert/strict'
 import { describe, it, mock } from 'node:test'
-import { arrayContaining, check, objectMatching } from 'tsmatchers'
-import { doRequest } from './doRequest.js'
+import { doRequest, type AssertFn } from './doRequest.js'
 
 void describe('doRequest()', () => {
 	void it('should execute a request', async () => {
@@ -14,7 +13,7 @@ void describe('doRequest()', () => {
 				json: async () => Promise.resolve({ foo: 'bar' }),
 			}),
 		)
-		const assertFn = mock.fn(async () => Promise.resolve())
+		const assertFn = mock.fn<AssertFn>(async () => Promise.resolve())
 
 		const inFlight = doRequest(
 			new URL('https://example.com'),
@@ -28,15 +27,14 @@ void describe('doRequest()', () => {
 		await inFlight.match(assertFn)
 		const mockArgs: [URL, RequestInit] =
 			mockFetch.mock.calls[0]?.arguments ?? ([] as any)
-		check(mockArgs[0].toString()).is(new URL('https://example.com').toString())
-		check(mockArgs[1]).is(objectMatching({ method: 'POST' }))
-		check(assertFn.mock.calls[0]?.arguments ?? []).is(
-			arrayContaining(
-				objectMatching({
-					body: { foo: 'bar' },
-				}),
-			),
+		assert.equal(
+			mockArgs[0].toString(),
+			new URL('https://example.com').toString(),
 		)
+		assert.partialDeepStrictEqual(mockArgs[1], { method: 'POST' })
+		assert.partialDeepStrictEqual(assertFn.mock.calls[0]?.arguments?.[0], {
+			body: { foo: 'bar' },
+		})
 	})
 
 	void it('should retry the request if the assert fails', async () => {
@@ -75,7 +73,7 @@ void describe('doRequest()', () => {
 
 		await inFlight.match(assertFn)
 
-		check(assertFn.mock.callCount()).is(2)
-		check(mockFetch.mock.callCount()).is(2)
+		assert.equal(assertFn.mock.callCount(), 2)
+		assert.equal(mockFetch.mock.callCount(), 2)
 	})
 })

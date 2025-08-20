@@ -9,6 +9,7 @@ void describe('doRequest()', () => {
 				status: 200,
 				headers: new Map<string, string>([
 					['content-type', 'application/json'],
+					['content-length', '42'],
 				]),
 				json: async () => Promise.resolve({ foo: 'bar' }),
 			}),
@@ -37,6 +38,34 @@ void describe('doRequest()', () => {
 		})
 	})
 
+	void it('should only parse the response if there is content', async () => {
+		const mockFetch = mock.fn(async () =>
+			Promise.resolve({
+				status: 200,
+				headers: new Map<string, string>([
+					['content-type', 'application/json'],
+					['content-length', '0'],
+				]),
+				json: async () => Promise.resolve(JSON.parse('')), // Intentional empty JSON
+			}),
+		)
+		const assertFn = mock.fn<AssertFn>(async () => Promise.resolve())
+
+		const inFlight = doRequest(
+			new URL('https://example.com'),
+			{
+				method: 'POST',
+			},
+			undefined,
+			mockFetch as any,
+		)
+
+		await inFlight.match(assertFn)
+		assert.partialDeepStrictEqual(assertFn.mock.calls[0]?.arguments?.[0], {
+			body: undefined,
+		})
+	})
+
 	void it('should retry the request if the assert fails', async () => {
 		const mockFetch = mock.fn<() => Promise<ReturnType<typeof fetch>>>()
 		mockFetch.mock.mockImplementationOnce(
@@ -53,6 +82,7 @@ void describe('doRequest()', () => {
 					status: 200,
 					headers: new Map<string, string>([
 						['content-type', 'application/json'],
+						['content-length', '42'],
 					]),
 					json: async () => Promise.resolve({ foo: 'bar' }),
 				} as any),

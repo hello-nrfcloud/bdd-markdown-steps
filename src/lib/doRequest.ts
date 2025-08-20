@@ -35,7 +35,10 @@ export const doRequest = (
 		for (const [k, v] of res.headers.entries()) {
 			logger?.progress(`< ${k}: ${v}`)
 		}
-		if (res.headers.get('content-type')?.includes('json') ?? false) {
+		if (
+			(res.headers.get('content-type')?.includes('json') ?? false) &&
+			parseInt(res.headers.get('content-length') ?? '0', 10) > 1
+		) {
 			const responseBody = await res.json()
 			logger?.progress(`< ${JSON.stringify(responseBody)}`)
 			return {

@@ -26,6 +26,7 @@ void describe('REST', () => {
 				},
 				{
 					'content-type': 'application/json; charset=utf-8',
+					'content-length': '42',
 				},
 			)
 
@@ -44,6 +45,7 @@ void describe('REST', () => {
 				},
 				{
 					'content-type': 'application/json; charset=utf-8',
+					'content-length': '42',
 				},
 			)
 

@@ -88,6 +88,6 @@
     "@hello.nrfcloud.com/nrfcloud-api-helpers": "^6.0.354",
     "@sinclair/typebox": "^0.34.41",
     "jsonata": "^2.1.0",
-    "p-retry": "^6.2.1"
+    "p-retry": "^7.0.0"
   }
 }

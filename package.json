@@ -38,7 +38,9 @@
     "@swc/core": "1.13.5",
     "@types/aws-lambda": "8.10.153",
     "@types/node": "24.6.1",
+    "commitlint": "20.1.0",
     "husky": "9.1.7",
+    "lint-staged": "16.2.3",
     "nock": "14.0.10"
   },
   "lint-staged": {

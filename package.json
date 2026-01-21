@@ -5,16 +5,16 @@
   "exports": {
     "./*": {
       "import": {
-        "types": "./dist/*.d.ts",
-        "default": "./dist/*.js"
+        "types": "./npm/*.d.ts",
+        "default": "./npm/*.js"
       }
     }
   },
   "type": "module",
   "scripts": {
-    "test": "node --experimental-transform-types --test \"!(dist|node_modules)/**/*.spec.ts\"",
+    "test": "node --experimental-transform-types --test \"!(npm|node_modules)/**/*.spec.ts\"",
     "prepare": "husky",
-    "prepublishOnly": "node --experimental-strip-types ./.npm/compile.ts && npx tsc -P ./.npm/tsconfig.npm.json --outDir ./dist"
+    "prepublishOnly": "node --experimental-strip-types ./.npm/compile.ts && npx tsgo src/*.ts --emitDeclarationOnly --declaration --ignoreConfig --allowImportingTsExtensions --target esnext --module nodenext --moduleResolution nodenext --outDir ./npm"
   },
   "repository": {
     "type": "git",
@@ -38,6 +38,7 @@
     "@swc/core": "1.15.10",
     "@types/aws-lambda": "8.10.160",
     "@types/node": "25.0.9",
+    "@typescript/native-preview": "7.0.0-dev.20260120.1",
     "commitlint": "20.3.1",
     "husky": "9.1.7",
     "lint-staged": "16.2.7",
@@ -86,8 +87,8 @@
   "peerDependencies": {
     "@aws-sdk/client-dynamodb": "^3.972.0",
     "@bifravst/bdd-markdown": "^8.2.80",
-    "@bifravst/http-api-mock": "^2.1.354",
-    "@hello.nrfcloud.com/nrfcloud-api-helpers": "^6.0.465",
+    "@bifravst/http-api-mock": "^2.1.355",
+    "@hello.nrfcloud.com/nrfcloud-api-helpers": "^6.0.468",
     "@sinclair/typebox": "^0.34.47",
     "jsonata": "^2.1.0",
     "p-retry": "^7.1.1"

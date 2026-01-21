@@ -3,7 +3,7 @@
  */
 
 import swc from '@swc/core'
-import { mkdirSync, rmdirSync, writeFileSync } from 'node:fs'
+import { mkdirSync, rmSync, writeFileSync } from 'node:fs'
 import { glob } from 'node:fs/promises'
 import path, { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -11,10 +11,10 @@ import { updateImports } from './updateImports.ts'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
-const outDir = path.join(__dirname, '..', 'dist')
+const outDir = path.join(__dirname, '..', 'npm')
 
 try {
-	rmdirSync(outDir, { recursive: true })
+	rmSync(outDir, { recursive: true })
 } catch {
 	// pass
 }

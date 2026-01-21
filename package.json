@@ -12,9 +12,9 @@
   },
   "type": "module",
   "scripts": {
-    "test": "node --experimental-transform-types --test \"!(npm|node_modules)/**/*.spec.ts\"",
+    "test": "node --experimental-transform-types --no-warnings --test \"!(npm|node_modules)/**/*.spec.ts\"",
     "prepare": "husky",
-    "prepublishOnly": "node --experimental-strip-types ./.npm/compile.ts && npx tsgo src/*.ts --emitDeclarationOnly --declaration --ignoreConfig --allowImportingTsExtensions --target esnext --module nodenext --moduleResolution nodenext --outDir ./npm"
+    "prepublishOnly": "node --experimental-transform-types --no-warnings ./.npm/compile.ts && npx tsgo src/*.ts --emitDeclarationOnly --declaration --ignoreConfig --allowImportingTsExtensions --target esnext --module nodenext --moduleResolution nodenext --outDir ./npm"
   },
   "repository": {
     "type": "git",
@@ -79,7 +79,7 @@
     "access": "public"
   },
   "files": [
-    "dist",
+    "npm",
     "LICENSE",
     "README.md"
   ],

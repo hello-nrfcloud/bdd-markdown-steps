@@ -9,6 +9,7 @@ permissions:
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  NODE_OPTS: "--no-warnings"
 
 jobs:
   tests:

@@ -38,7 +38,7 @@
     "@swc/core": "1.15.13",
     "@types/aws-lambda": "8.10.160",
     "@types/node": "25.3.0",
-    "@typescript/native-preview": "7.0.0-dev.20260223.1",
+    "@typescript/native-preview": "7.0.0-dev.20260224.1",
     "commitlint": "20.4.2",
     "husky": "9.1.7",
     "lint-staged": "16.2.7",

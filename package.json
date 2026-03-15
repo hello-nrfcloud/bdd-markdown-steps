@@ -37,7 +37,7 @@
     "@commitlint/config-conventional": "20.4.4",
     "@swc/core": "1.15.18",
     "@types/aws-lambda": "8.10.161",
-    "@types/node": "25.4.0",
+    "@types/node": "25.5.0",
     "@typescript/native-preview": "7.0.0-dev.20260312.1",
     "commitlint": "20.4.4",
     "husky": "9.1.7",

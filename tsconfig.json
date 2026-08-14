@@ -16,7 +16,8 @@
     "noUnusedLocals": true,
     "noEmit": true,
     "verbatimModuleSyntax": true,
-    "allowImportingTsExtensions": true
+    "allowImportingTsExtensions": true,
+    "types": ["node"]
   },
   "include": ["./src/**/*", "./.npm/**/*"],
   "exclude": ["./dist/*"]

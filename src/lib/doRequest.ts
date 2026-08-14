@@ -55,9 +55,7 @@ export const doRequest = (
 		match: async (
 			assertFn: (args: Result) => Promise<unknown>,
 		): Promise<void> => {
-			if (requestInFlight === undefined) {
-				requestInFlight = send()
-			}
+			requestInFlight ??= send()
 
 			const { response, body } = await requestInFlight
 
@@ -68,7 +66,7 @@ export const doRequest = (
 					body,
 				})
 				logger?.progress(`Check passed ...`)
-			} catch (err) {
+			} catch {
 				logger?.progress(`Retrying ...`)
 				await new Promise((resolve) => setTimeout(resolve, 1000))
 				await pRetry(

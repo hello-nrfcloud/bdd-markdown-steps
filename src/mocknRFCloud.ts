@@ -118,7 +118,7 @@ export const steps = ({
 		},
 	)
 
-	const expectRequest = <StepRunner>{
+	const expectRequest = {
 		match: (title) =>
 			/^the nRF Cloud API should have been called with$/.test(title),
 		run: async ({ log: { progress }, step }) => {
@@ -171,7 +171,7 @@ export const steps = ({
 								JSON.parse(headers),
 								request.headers,
 							)
-						} catch (err) {
+						} catch {
 							return false
 						}
 						return true

@@ -96,7 +96,8 @@ export const steps = ({
 										.map(([k, v]) => [k.toLowerCase(), v])
 										.find(
 											([k, v]) =>
-												k === 'content-type' && v?.includes('application/json'),
+												k === 'content-type' &&
+												v?.includes('application/json') === true,
 										) !== undefined
 								if (isJSON) {
 									progress('Body is JSON')

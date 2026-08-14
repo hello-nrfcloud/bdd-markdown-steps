@@ -10,6 +10,7 @@ import {
 	codeBlockOrThrow,
 	regExpMatchedStep,
 	type StepRunner,
+	type StepRunnerArgs,
 } from '@bifravst/bdd-markdown'
 import { parseMockRequest } from '@bifravst/http-api-mock/parseMockRequest'
 import { parseMockResponse } from '@bifravst/http-api-mock/parseMockResponse'
@@ -119,9 +120,12 @@ export const steps = ({
 	)
 
 	const expectRequest = {
-		match: (title) =>
+		match: (title: string) =>
 			/^the nRF Cloud API should have been called with$/.test(title),
-		run: async ({ log: { progress }, step }) => {
+		run: async ({
+			log: { progress },
+			step,
+		}: StepRunnerArgs<Record<string, any>>) => {
 			const expectedRequest = codeBlockOrThrow(step).code
 
 			const request = parseMockRequest(expectedRequest)

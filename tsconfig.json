@@ -17,8 +17,11 @@
     "noEmit": true,
     "verbatimModuleSyntax": true,
     "allowImportingTsExtensions": true,
-    "types": ["node"]
+    "rewriteRelativeImportExtensions": true,
+    "types": ["node"],
+    "rootDir": "./src",
+    "outDir": "./dist"
   },
-  "include": ["./src/**/*", "./.npm/**/*"],
+  "include": ["./src/**/*"],
   "exclude": ["./dist/*"]
 }

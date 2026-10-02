@@ -35,7 +35,7 @@
     "@bifravst/eslint-config-typescript": "8.0.8",
     "@bifravst/prettier-config": "2.0.3",
     "@commitlint/config-conventional": "21.2.3",
-    "@types/aws-lambda": "8.10.163",
+    "@types/aws-lambda": "8.10.164",
     "@types/node": "26.6.3",
     "@types/toposort": "2.0.7",
     "@typescript/native": "npm:typescript@7.0.2",

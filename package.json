@@ -12,7 +12,7 @@
   },
   "type": "module",
   "scripts": {
-    "test": "node --experimental-transform-types --no-warnings --test \"!(npm|node_modules)/**/*.spec.ts\"",
+    "test": "node --no-warnings --test \"!(npm|node_modules)/**/*.spec.ts\"",
     "prepare": "husky && case \"$npm_command\" in install|ci) check-node-version --package ;; esac",
     "prepublishOnly": "npx tsc --noEmit false -d"
   },

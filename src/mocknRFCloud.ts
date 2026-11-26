@@ -129,12 +129,11 @@ export const steps = ({
 			const expectedRequest = codeBlockOrThrow(step).code
 
 			const request = parseMockRequest(expectedRequest)
+			const expectedHeaders = new Headers(request.headers)
 			let expectedBody = request.body
 			if (
-				Object.entries(request.headers)
-					.map(([k, v]) => [k.toLowerCase(), v])
-					.find(([k]) => k === 'content-type')?.[1]
-					?.includes('application/json') === true
+				expectedHeaders.get('content-type')?.includes('application/json') ===
+				true
 			) {
 				expectedBody = JSON.stringify(JSON.parse(expectedBody))
 			}
@@ -171,10 +170,10 @@ export const steps = ({
 						}
 						try {
 							progress(`headers: ${headers}`)
-							assert.partialDeepStrictEqual(
-								JSON.parse(headers),
-								request.headers,
-							)
+							const requestHeaders = new Headers(JSON.parse(headers))
+							for (const [name, value] of expectedHeaders) {
+								assert.equal(requestHeaders.get(name), value)
+							}
 						} catch {
 							return false
 						}
@@ -269,8 +268,9 @@ export const steps = ({
 							)
 							progress('headers', headers)
 							assert.ok(
-								JSON.parse(headers)?.Authorization?.includes(expectedAPIKey) ===
-									true,
+								new Headers(JSON.parse(headers) ?? {})
+									.get('authorization')
+									?.includes(expectedAPIKey) === true,
 								`Authorization header does not include expected API key`,
 							)
 							return true

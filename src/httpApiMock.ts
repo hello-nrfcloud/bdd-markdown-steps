@@ -90,15 +90,14 @@ export const steps = ({
 							try {
 								assert.equal(request.method, method)
 								assert.equal(request.path, resource.slice(1))
-								assert.partialDeepStrictEqual(request.headers, headers)
+								const requestHeaders = new Headers(request.headers)
+								for (const [name, value] of new Headers(headers)) {
+									assert.equal(requestHeaders.get(name), value)
+								}
 								const isJSON =
-									Object.entries(request.headers)
-										.map(([k, v]) => [k.toLowerCase(), v])
-										.find(
-											([k, v]) =>
-												k === 'content-type' &&
-												v?.includes('application/json') === true,
-										) !== undefined
+									requestHeaders
+										.get('content-type')
+										?.includes('application/json') === true
 								if (isJSON) {
 									progress('Body is JSON')
 									assert.partialDeepStrictEqual(
